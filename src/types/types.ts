@@ -23,20 +23,24 @@ export type Flight = {
 }
 
 export type Details = {
+        
     id : string;
-    legs : [
+    origin: {
+        city: string;
+    };
+    destination: {
+        city: string;
+    };
+    duration: number;
+    stopCount: number;
+    departure: string;
+    arrival: string;
+    segments: [
         {
-            id : string;
-            origin: {
-                city: string;
+            marketingCarrier: {
+                name: string;
             };
-            destination: {
-                city: string;
-            };
-            duration: number;
-            stopCount: number;
-            departure: string;
-            arrival: string;
         }
     ];
+    
 }

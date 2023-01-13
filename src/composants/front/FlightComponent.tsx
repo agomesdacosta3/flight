@@ -111,6 +111,7 @@ const FlightComponent: React.FC = () => {
             placeholder='Entrez le code IATA de votre aéroport de départ'
             value={departIata} 
             onChange={handleChangeDepartIata}
+            readOnly
             required/>
 
           <Search
@@ -146,8 +147,6 @@ const FlightComponent: React.FC = () => {
         {/* AFFICHAGE DES AEROPORTS*/}
       
         <div>
-          
-          <p>{`${flights.length}`}</p>
       
           {
             error && <p>{`${message}`}</p>

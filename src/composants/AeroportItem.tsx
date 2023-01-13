@@ -1,4 +1,3 @@
-import { Navigate } from "react-router";
 import { Aeroport } from "../types/types";
 import { CardBottom, CardTop, CardWrapper, Setup } from "./styles/Cards";
 
@@ -22,8 +21,8 @@ const AeroportItem: React.FC<AeroportProps> = ({aeroport}) =>{
                 <p> Aéroport : {aeroport.PlaceName}, {aeroport.PlaceId}</p>
             </CardTop>
             <Setup>
-                <span> Iata Code : {aeroport.IataCode}</span>
-                <span> Pays : {aeroport.CountryName}</span>
+                <p> Iata Code : {aeroport.IataCode}</p>
+                <p> Pays : {aeroport.CountryName}</p>
             </Setup>
             <CardBottom>
                 <button onClick={chooseFlight}>Partir à partir de cet aéroport</button>

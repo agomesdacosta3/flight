@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Form from "../styles/Form";
 import '../../App.css';
 import Button from "../styles/Button";
@@ -12,20 +12,15 @@ import axios from "axios";
 const DetailsComponent: React.FC = () => {
 
   const [error, setError] = useState<boolean>(false)
-  const [check, setCheck] = useState<number>(2)
   const [message, setMessage] = useState<string>("")
 
   const flightId: string = "15083-2301231225--31685-0-13542-2301231230|13542-2302041620--31685-0-15083-2302041830" ;
-  // const legs: [number | string] = [""];
 
-  const [a, setFlightDetails] = useState<Details[]>([]) ;
-  const [details, setDetails] = useState([]) ;
+  const [flightDetails, setFlightDetails] = useState<Details[]>([])
 
-  useEffect (() => {
-    getFlightDetails();
-  }, [] )
+  const getFlightDetails = async (e: React.FormEvent<HTMLFormElement>) => {
 
-  async function getFlightDetails () {
+    e.preventDefault();
     
     const options = {
       method: 'GET',
@@ -44,13 +39,11 @@ const DetailsComponent: React.FC = () => {
 
     axios.request(options)
       .then(function (response) {
-        const data = response.data.data ;
+        const data = response.data.data.legs
+        setFlightDetails(data)
         console.log(data);
         setError(false)
-        setCheck(data.legs[0].id)
-        console.log("lenght avant : " + details.length)
-        setDetails(data);
-        console.log("lenght apres : " + details.length)
+        
       })
       .catch(function (error) {
 
@@ -69,25 +62,22 @@ const DetailsComponent: React.FC = () => {
 
         { /*<Image src={FlightDetailsImg} alt="details" /> */ }
 
-        {/* <Form onSubmit={getFlightDetails}>
+        <Form onSubmit={getFlightDetails}>
         
           <Button type='submit'> Afficher les détails </Button>
 
-        </Form> */}
+        </Form>
       
         {/* AFFICHAGE DES DETAILS*/}
       
-        <div id="result_display">
-
-          <p>{`${check}`}</p>
-          <p>{`${details.length}`}</p>
+        <div>
           
           {
             error && <p>{`${message}`}</p>
           }
           
-          { details.length > 0 &&
-            <DetailsItem key={flightId} details={details[0]}/>
+          { flightDetails.length > 0 &&
+            flightDetails.map(detail => <DetailsItem key={detail.id} details={detail}/>)
           }
 
         </div>
